@@ -3,14 +3,6 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
 
-public enum State
-{
-    Idle,
-    Patrolling,
-    Alert,
-    Chasing,
-    Death
-}
 
 public class SimpleStateMachine : MonoBehaviour
 {
@@ -34,18 +26,18 @@ public class SimpleStateMachine : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            state = State.Patrolling;
+            state = State.Patrol;
         }
         else if (Input.GetKeyDown(KeyCode.C))
         {
-            state = State.Chasing;
+            state = State.Patrol;
         }
 
         switch (state)
         {
             case State.Idle:
                 break;
-            case State.Patrolling:
+            case State.Patrol:
 
 
                 agent.SetDestination(checkpoints[actualCheckPoint].position);
@@ -56,7 +48,7 @@ public class SimpleStateMachine : MonoBehaviour
                 break;
             case State.Alert:
                 break;
-            case State.Chasing:
+            case State.Chase:
                 transform.Translate(Vector3.forward * 5 * Time.deltaTime);
                 break;
             default:

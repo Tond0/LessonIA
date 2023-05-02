@@ -58,6 +58,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\SimpleStateMachine.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\UnityController.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\AIState.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\Idle.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\Patrol.cs" />
+    <Compile Include="Assets\Scripts\AIController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
