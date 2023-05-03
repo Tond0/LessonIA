@@ -14,7 +14,6 @@ public class Idle : AIState
     public override void Enter()
     {
         //TODO: Set animazioni idle
-
         //Richiamiamo quello fatto in AIState 
         base.Enter();
     }
