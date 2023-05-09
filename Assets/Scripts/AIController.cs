@@ -24,4 +24,9 @@ public class AIController : MonoBehaviour
         currentState = currentState.Process();
         Debug.Log(currentState);
     }
+
+    private void OnDrawGizmos()
+    {
+
+    }
 }

@@ -20,11 +20,24 @@ public class Idle : AIState
 
     public override void Update()
     {
+        if (CanSeePlayer())
+        {
+            nextState = new Chase(npc, agent, anim, player, checkpoints);
+            stage = Event.Exit;
+            return;
+        }
+        else if (PlayerBehind())
+        {
+            nextState = new Flight(npc, agent, anim, player, checkpoints);
+            stage = Event.Exit;
+            return;
+        }
         //2% di chanche
         if(Random.Range(0, 500) < 10)
         {
             nextState = new Patrol(npc, agent, anim, player, checkpoints);
             stage = Event.Exit;
+            return;
         }
 
     }

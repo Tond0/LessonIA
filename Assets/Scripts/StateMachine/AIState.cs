@@ -10,6 +10,8 @@ public enum State
     Patrol,
     Alert,
     Chase,
+    Flight,
+    Attack,
     Death
 }
 
@@ -39,6 +41,7 @@ public class AIState
     //Stats
     float visDist = 10.0f;
     float halfVisAngle = 30.0f;
+    float halfBackStab = 30.0f;
     float attackRange = 7.0f;
 
 
@@ -77,6 +80,43 @@ public class AIState
 
         //Restituiamo lo statu attuale (un modo per dire "noi siamo in questo stato qua")
         return this;
+    }
+
+    public bool CanSeePlayer()
+    {
+        Vector3 direzione = player.position - npc.transform.position;
+        float angle = Vector3.Angle(direzione, npc.transform.forward);
+
+        if (direzione.magnitude < visDist && angle < halfVisAngle)
+        {
+            return true;
+        }
+
+        return false;
+    }
+    public bool PlayerBehind()
+    {
+        Vector3 direzione = npc.transform.position - player.position;
+        float angle = Vector3.Angle(direzione, player.forward);
+
+        if (direzione.magnitude < visDist && angle < halfBackStab)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool CanAttackPlayer()
+    {
+        Vector3 direction = player.position - npc.transform.position;
+
+        if(direction.magnitude < attackRange)
+        {
+            return true;
+        }
+
+        return false;
     }
 
 }

@@ -17,8 +17,17 @@ public class Patrol : AIState
 
     public override void Enter()
     {
-        currentCheckPoint = 0;
-        agent.SetDestination(checkpoints[currentCheckPoint].position);
+        float lastDist = Mathf.Infinity;
+        for(int i = 0; i < checkpoints.Length; i++)
+        {
+            Transform tempCheckpoint = checkpoints[i];
+            float distance = Vector3.Distance(npc.transform.position, tempCheckpoint.position);
+            if(distance < lastDist)
+            {
+                currentCheckPoint = i - 1;
+                lastDist = distance;
+            }
+        }
         //TODO: Set animazione di camminata
 
         base.Enter();
@@ -35,6 +44,20 @@ public class Patrol : AIState
 
             agent.SetDestination(checkpoints[currentCheckPoint].position);
         }
+
+        if (CanSeePlayer())
+        {
+            nextState = new Chase(npc, agent, anim, player, checkpoints);
+            stage = Event.Exit;
+            return;
+        }
+        else if (PlayerBehind())
+        {
+            nextState = new Flight(npc, agent, anim, player, checkpoints);
+            stage = Event.Exit;
+            return;
+        }
+
         base.Update();
     }
 

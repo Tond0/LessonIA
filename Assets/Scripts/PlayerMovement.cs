@@ -62,8 +62,11 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("Strafe", xMove);
         anim.SetFloat("Throttle", zMove);
 
-        Vector3 direction = new Vector3(xMove, 0, zMove).normalized;
+        Vector3 direction = (transform.right * xMove + transform.forward * zMove).normalized;
         desiredVelocity = isStealthMode ? direction * stealthMovementSpeed : direction * movementSpeed;
+
+        Vector3 lookAt = Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up).normalized;
+        transform.forward = lookAt;
     }
 
     private void Jump()
